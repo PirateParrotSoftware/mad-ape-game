@@ -1,0 +1,329 @@
+[
+    {
+        "name": "Roman PvP",
+        "cards": [
+            {
+                "id": 115,
+                "amount": 2
+            },
+            {
+                "id": 113,
+                "amount": 2
+            },
+            {
+                "id": 104,
+                "amount": 1
+            },
+            {
+                "id": 118,
+                "amount": 2
+            },
+            {
+                "id": 124,
+                "amount": 4
+            },
+            {
+                "id": 125,
+                "amount": 1
+            },
+            {
+                "id": 126,
+                "amount": 1
+            },
+            {
+                "id": 129,
+                "amount": 2
+            },
+            {
+                "id": 128,
+                "amount": 2
+            },
+            {
+                "id": 127,
+                "amount": 2
+            },
+            {
+                "id": 0,
+                "amount": 2
+            },
+            {
+                "id": 1,
+                "amount": 2
+            },
+            {
+                "id": 26,
+                "amount": 2
+            },
+            {
+                "id": 11,
+                "amount": 2
+            },
+            {
+                "id": 10,
+                "amount": 2
+            },
+            {
+                "id": 12,
+                "amount": 1
+            },
+            {
+                "id": 49,
+                "amount": 2
+            },
+            {
+                "id": 143,
+                "amount": 3
+            }
+        ]
+    },
+    {
+        "name": "dan deck",
+        "cards": [
+            {
+                "id": 9,
+                "amount": 4
+            },
+            {
+                "id": 122,
+                "amount": 4
+            },
+            {
+                "id": 129,
+                "amount": 4
+            },
+            {
+                "id": 26,
+                "amount": 4
+            }
+        ]
+    },
+    {
+        "name": "Spells",
+        "cards": [
+            {
+                "id": 101,
+                "amount": 2
+            },
+            {
+                "id": 100,
+                "amount": 2
+            },
+            {
+                "id": 113,
+                "amount": 2
+            },
+            {
+                "id": 115,
+                "amount": 2
+            },
+            {
+                "id": 116,
+                "amount": 2
+            },
+            {
+                "id": 103,
+                "amount": 2
+            },
+            {
+                "id": 102,
+                "amount": 2
+            },
+            {
+                "id": 117,
+                "amount": 2
+            },
+            {
+                "id": 108,
+                "amount": 2
+            },
+            {
+                "id": 109,
+                "amount": 2
+            },
+            {
+                "id": 104,
+                "amount": 2
+            },
+            {
+                "id": 105,
+                "amount": 2
+            },
+            {
+                "id": 110,
+                "amount": 2
+            },
+            {
+                "id": 118,
+                "amount": 2
+            },
+            {
+                "id": 0,
+                "amount": 2
+            }
+        ]
+    },
+    {
+        "name": "Minions",
+        "cards": [
+            {
+                "id": 0,
+                "amount": 4
+            },
+            {
+                "id": 45,
+                "amount": 4
+            },
+            {
+                "id": 26,
+                "amount": 4
+            },
+            {
+                "id": 11,
+                "amount": 4
+            },
+            {
+                "id": 101,
+                "amount": 4
+            },
+            {
+                "id": 115,
+                "amount": 4
+            },
+            {
+                "id": 103,
+                "amount": 4
+            }
+        ]
+    },
+    {
+        "name": "Spells 2",
+        "cards": [
+            {
+                "id": 101,
+                "amount": 1
+            },
+            {
+                "id": 100,
+                "amount": 1
+            },
+            {
+                "id": 113,
+                "amount": 1
+            },
+            {
+                "id": 115,
+                "amount": 1
+            },
+            {
+                "id": 116,
+                "amount": 1
+            },
+            {
+                "id": 103,
+                "amount": 1
+            },
+            {
+                "id": 102,
+                "amount": 1
+            },
+            {
+                "id": 117,
+                "amount": 1
+            },
+            {
+                "id": 108,
+                "amount": 1
+            },
+            {
+                "id": 109,
+                "amount": 1
+            },
+            {
+                "id": 104,
+                "amount": 1
+            },
+            {
+                "id": 105,
+                "amount": 1
+            },
+            {
+                "id": 110,
+                "amount": 1
+            },
+            {
+                "id": 118,
+                "amount": 1
+            },
+            {
+                "id": 111,
+                "amount": 1
+            },
+            {
+                "id": 112,
+                "amount": 1
+            },
+            {
+                "id": 106,
+                "amount": 1
+            },
+            {
+                "id": 119,
+                "amount": 1
+            },
+            {
+                "id": 120,
+                "amount": 1
+            },
+            {
+                "id": 0,
+                "amount": 3
+            },
+            {
+                "id": 45,
+                "amount": 1
+            }
+        ]
+    },
+    {
+        "name": "Roman Deck",
+        "cards": [
+            {
+                "id": 0,
+                "amount": 4
+            },
+            {
+                "id": 10,
+                "amount": 4
+            },
+            {
+                "id": 89,
+                "amount": 4
+            },
+            {
+                "id": 11,
+                "amount": 4
+            }
+        ]
+    },
+    {
+        "name": "Dan Deck 2",
+        "cards": [
+            {
+                "id": 10,
+                "amount": 4
+            },
+            {
+                "id": 41,
+                "amount": 4
+            },
+            {
+                "id": 131,
+                "amount": 4
+            },
+            {
+                "id": 132,
+                "amount": 4
+            }
+        ]
+    }
+]
