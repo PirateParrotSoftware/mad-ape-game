@@ -1,16 +1,79 @@
+@font-face { font-family: OpenSans; src: url ("https://fonts.google.com/specimen/Open+Sans"); }
+@font-face {
+    font-family: Bangers;
+    src: 
+        url('./Fonts/Bangers.ttf')
+        format('opentype');
+}
+@font-face {
+    font-family: JuaRegular;
+    src: 
+        url('./Fonts/Jua-Regular.ttf')
+        format('opentype');
+}
 
-body { padding: 0; margin: 0; overflow: hidden }
+body { padding: 0; margin: 0; overflow: hidden; background: black; }
+#text-label { 
+	margin-top: 10px;
+	position: absolute;
+	color: white; 
+	font-size: 20px; 
+	font-family: JuaRegular, Verdana, sans-serif; 
+	text-align: center;
+	right: 0;
+	left: 0;
+	top: 0;
+	user-select: none;
+}
 #game-title { font-size: 65px; }
 #game-logo { object-fit: cover; display: block; width: 100%; max-width: 400px; margin: auto }
-#unity-container { position: absolute }
+#unity-container { position: absolute; background: url("./Preloader.jpg") no-repeat center; background-size: contain; width: 100%; max-width: 1920px; }
+
+#date-label {
+	font-size: 20px;
+	font-family: JuaRegular, Verdana, sans-serif; 
+	color: white;
+	position: absolute;
+	bottom: 0;
+	margin: 15px;
+	height: 25px;
+}
+
+@media (max-width: 1920px) {
+	#unity-container { background-size: cover; }
+}
+
+@media (max-height: 880px) {
+	#unity-container { background-size: contain; }
+}
+
 #unity-container.unity-desktop { left: 50%; top: 50%; transform: translate(-50%, -50%) }
 #unity-container.unity-mobile { width: 100%; height: 100% }
-#unity-canvas { background: #231F20 }
 .unity-mobile #unity-canvas { width: 100%; height: 100% }
-#unity-loading-bar { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: none; max-width: 800px; width: 100% }
+#unity-loading-bar { justify-content: center; align-items: center; position: absolute; left: 50%; bottom: 2.5%; transform: translate(-50%, -50%); display: none; width: 100% }
 #unity-logo { width: 154px; height: 130px; background: url('unity-logo-dark.png') no-repeat center }
-#unity-progress-bar-empty { width: 100%; height: 18px; margin-top: 10px; border: 4px solid black; }
-#unity-progress-bar-full { width: 0%; height: 18px; background-color: orange; }
+
+#unity-progress-bar-empty { 
+	margin-top: 5px; 
+	position: relative;
+	width: 100%;
+	max-width: 776px;
+	height: 80px;
+	background-image: url('loading-background.png'); 
+	background-size: cover;
+	background-repeat: none;
+}
+
+#unity-progress-bar-full { 
+	background-image: url('loading-bar.png'); 
+	position: absolute; /* set position to absolute to position it relative to the loading bar */
+	top: 0;
+	left: 0;
+	width: 0%;
+	height: 80px;
+	background-size: cover;
+}
+
 #unity-footer { position: relative }
 .unity-mobile #unity-footer { display: none }
 #unity-webgl-logo { float:left; width: 204px; height: 38px; background: url('webgl-logo.png') no-repeat center }

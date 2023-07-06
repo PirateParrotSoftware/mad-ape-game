@@ -3,71 +3,7 @@
         "name": "Default",
         "cards": [
             {
-                "id": 115,
-                "amount": 2
-            },
-            {
-                "id": 113,
-                "amount": 2
-            },
-            {
-                "id": 104,
-                "amount": 1
-            },
-            {
-                "id": 118,
-                "amount": 2
-            },
-            {
-                "id": 124,
-                "amount": 2
-            },
-            {
-                "id": 125,
-                "amount": 1
-            },
-            {
-                "id": 126,
-                "amount": 1
-            },
-            {
-                "id": 129,
-                "amount": 2
-            },
-            {
-                "id": 128,
-                "amount": 2
-            },
-            {
-                "id": 127,
-                "amount": 2
-            },
-            {
-                "id": 0,
-                "amount": 2
-            },
-            {
-                "id": 1,
-                "amount": 2
-            },
-            {
-                "id": 26,
-                "amount": 2
-            },
-            {
-                "id": 11,
-                "amount": 2
-            },
-            {
-                "id": 10,
-                "amount": 2
-            },
-            {
-                "id": 12,
-                "amount": 1
-            },
-            {
-                "id": 49,
+                "id": "115",
                 "amount": 2
             }
         ]
