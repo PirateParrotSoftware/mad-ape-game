@@ -10,6 +10,27 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=EB+Garamond" />
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
+  <script src="https://c0f4f41c-2f55-4863-921b-sdk-docs.github.io/cdn/metamask-sdk.js"></script>
+  <script>
+    function LoginToMetamaskInternal()
+    {
+      const MMSDK = new MetaMaskSDK.MetaMaskSDK(
+              {
+                dappMetadata: {
+                  name: "Mad Ape",
+                  url: window.location.host,
+              }
+            })
+          
+          setTimeout(() => {
+              const ethereum = MMSDK.getProvider()
+
+              ethereum.request({ method: 'eth_requestAccounts' })
+                .then((res) => console.log('request accounts', res))
+                .catch((e) => console.log('request accounts ERR', e));
+            }, 0)
+    }
+  </script>
   <body>
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas" width=1650 height=1080></canvas>
@@ -26,17 +47,21 @@
       </div>
     </div>
 	
+<<<<<<< Updated upstream
 	<div id="date-label"> 0815-1157 </div>
+=======
+	<div id="date-label">  </div>
+>>>>>>> Stashed changes
 	<script src="web3/index.js"></script>
     <script>
       var buildUrl = "Build";
       var gameInstance;
 
-      var loaderUrl = buildUrl + "/GameClient.loader.js";
+      var loaderUrl = buildUrl + "/Build.loader.js";
       var config = {
-        dataUrl: buildUrl + "/GameClient.data.unityweb",
-        frameworkUrl: buildUrl + "/GameClient.framework.js.unityweb",
-        codeUrl: buildUrl + "/GameClient.wasm.unityweb",
+        dataUrl: buildUrl + "/Build.data.unityweb",
+        frameworkUrl: buildUrl + "/Build.framework.js.unityweb",
+        codeUrl: buildUrl + "/Build.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Mad Ape",
         productName: "Mad Ape",
@@ -66,7 +91,7 @@
 
       var fileSize = '';
       var http = new XMLHttpRequest();
-      http.open('HEAD', buildUrl + "/GameClient.data.unityweb", false); // false = Synchronous
+      http.open('HEAD', buildUrl + "/Build.data.unityweb", false); // false = Synchronous
       http.send(null);
 
       if (http.status === 200) {
