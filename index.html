@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Mad Ape</title>
+    <title>{{{ PRODUCT_NAME }}}</title>
     <link rel="icon" type="image/png" href="TemplateData/favicon.png" />
     <link rel="apple-touch-icon" href="TemplateData/favicon.png"/>
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Syncopate" />
@@ -12,16 +12,16 @@
   </head>
   <script src="https://c0f4f41c-2f55-4863-921b-sdk-docs.github.io/cdn/metamask-sdk.js"></script>
   <script>
+    const MMSDK = new MetaMaskSDK.MetaMaskSDK(
+            {
+              dappMetadata: {
+                name: "Mad Ape",
+                url: window.location.host,
+            }
+          })
+        
     function LoginToMetamaskInternal()
     {
-      const MMSDK = new MetaMaskSDK.MetaMaskSDK(
-              {
-                dappMetadata: {
-                  name: "Mad Ape",
-                  url: window.location.host,
-              }
-            })
-          
           setTimeout(() => {
               const ethereum = MMSDK.getProvider()
 
@@ -33,7 +33,7 @@
   </script>
   <body>
     <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=1650 height=1080></canvas>
+      <canvas id="unity-canvas" width={{{ WIDTH }}} height={{{ HEIGHT }}}></canvas>
       <div id="unity-loading-bar">
         <!--
         <div id="game-title" style="font-family: Syncopate, Courier, monospace;">
@@ -47,25 +47,27 @@
       </div>
     </div>
 	
-<<<<<<< Updated upstream
-	<div id="date-label"> 0815-1157 </div>
-=======
-	<div id="date-label">  </div>
->>>>>>> Stashed changes
+	<div id="date-label"> {{{ UNITY_CUSTOM_BUILD_DATE }}} </div>
 	<script src="web3/index.js"></script>
     <script>
       var buildUrl = "Build";
       var gameInstance;
 
-      var loaderUrl = buildUrl + "/Build.loader.js";
+      var loaderUrl = buildUrl + "/{{{ LOADER_FILENAME }}}";
       var config = {
-        dataUrl: buildUrl + "/Build.data.unityweb",
-        frameworkUrl: buildUrl + "/Build.framework.js.unityweb",
-        codeUrl: buildUrl + "/Build.wasm.unityweb",
+        dataUrl: buildUrl + "/{{{ DATA_FILENAME }}}",
+        frameworkUrl: buildUrl + "/{{{ FRAMEWORK_FILENAME }}}",
+        codeUrl: buildUrl + "/{{{ CODE_FILENAME }}}",
+  #if MEMORY_FILENAME
+          memoryUrl: buildUrl + "/{{{ MEMORY_FILENAME }}}",
+  #endif
+  #if SYMBOLS_FILENAME
+          symbolsUrl: buildUrl + "/{{{ SYMBOLS_FILENAME }}}",
+  #endif
         streamingAssetsUrl: "StreamingAssets",
-        companyName: "Mad Ape",
-        productName: "Mad Ape",
-        productVersion: "0.9"
+        companyName: "{{{ COMPANY_NAME }}}",
+        productName: "{{{ PRODUCT_NAME }}}",
+        productVersion: "{{{ PRODUCT_VERSION }}}"
       };
 
       var container = document.querySelector("#unity-container");
@@ -91,7 +93,7 @@
 
       var fileSize = '';
       var http = new XMLHttpRequest();
-      http.open('HEAD', buildUrl + "/Build.data.unityweb", false); // false = Synchronous
+      http.open('HEAD', buildUrl + "/{{{ DATA_FILENAME }}}", false); // false = Synchronous
       http.send(null);
 
       if (http.status === 200) {
