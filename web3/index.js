@@ -83,13 +83,13 @@ async function connect() {
 
   // refresh page if player changes account
   provider.on("accountsChanged", (accounts) => {
-	  gameInstance.SendMessage("UserWallet", "Logout"); 
+	  gameInstance.SendMessage("ClientConnectionHandler", "LogOutIfUserIsNotGuest"); 
   });
 
   // update if player changes network
   provider.on("chainChanged", async (chainId) => {
     web3gl.networkId = parseInt(chainId);
-	  gameInstance.SendMessage("UserWallet", "Logout"); 
+	  gameInstance.SendMessage("ClientConnectionHandler", "LogOut"); 
     await checkNetwork(web3gl.networkId);
   });
 }
