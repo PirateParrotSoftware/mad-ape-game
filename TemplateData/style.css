@@ -12,7 +12,7 @@
         format('opentype');
 }
 
-body { padding: 0; margin: 0; overflow: hidden; background: black; user-select: none; }
+body { padding: 0; margin: 0; overflow: hidden; background: black; }
 #text-label { 
 	margin-top: 10px;
 	position: absolute;
@@ -27,7 +27,7 @@ body { padding: 0; margin: 0; overflow: hidden; background: black; user-select: 
 }
 #game-title { font-size: 65px; }
 #game-logo { object-fit: cover; display: block; width: 100%; max-width: 400px; margin: auto }
-#unity-container { position: absolute; background: url("./Preloader.jpg") no-repeat center; background-size: contain; width: 100%; max-width: 1920px; user-select: none; }
+#unity-container { position: absolute; background: url("./Preloader.jpg") no-repeat center; background-size: contain; width: 100%; max-width: 1920px; }
 
 #date-label {
 	font-size: 20px;
