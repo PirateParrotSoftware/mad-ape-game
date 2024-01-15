@@ -8,9 +8,43 @@
     <link rel="apple-touch-icon" href="TemplateData/favicon.png"/>
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Syncopate" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=EB+Garamond" />
-    <link rel="stylesheet" href="TemplateData/style.css">
+    <link rel="stylesheet" href="TemplateData/style.css"><script src="https://c0f4f41c-2f55-4863-921b-sdk-docs.github.io/cdn/metamask-sdk.js"></script>
   </head>
   <body>
+    <script src="https://c0f4f41c-2f55-4863-921b-sdk-docs.github.io/cdn/metamask-sdk.js"></script>
+    <script>
+      const sdk = new MetaMaskSDK.MetaMaskSDK({
+        dappMetadata: {
+          name: "Pure JS example",
+          url: window.location.host,
+        },
+        logging: {
+          sdk: false,
+        }
+      });
+    </script>
+    <script>
+      function connect() {
+        ethereum
+          .request({
+            method: 'eth_requestAccounts',
+            params: [],
+          })
+          .then((res) => 
+            {
+              var p = document.getElementById("p");
+              p.textContent = res;
+            })
+          .catch((e) =>
+            {
+              var p = document.getElementById("p");
+              p.textContent = e;
+            })
+      }
+    </script>
+    <button onclick="connect()">Connect</button>
+    <button id="p">Addresssssssssssssss</button>
+
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas" width=1650 height=1080></canvas>
       <div id="unity-loading-bar">
@@ -26,17 +60,17 @@
       </div>
     </div>
 	
-	<div id="date-label"> 0817-0959 </div>
+	<div id="date-label">  </div>
 	<script src="web3/index.js"></script>
     <script>
       var buildUrl = "Build";
       var gameInstance;
 
-      var loaderUrl = buildUrl + "/GameClient.loader.js";
+      var loaderUrl = buildUrl + "/Build.loader.js";
       var config = {
-        dataUrl: buildUrl + "/GameClient.data.unityweb",
-        frameworkUrl: buildUrl + "/GameClient.framework.js.unityweb",
-        codeUrl: buildUrl + "/GameClient.wasm.unityweb",
+        dataUrl: buildUrl + "/Build.data.unityweb",
+        frameworkUrl: buildUrl + "/Build.framework.js.unityweb",
+        codeUrl: buildUrl + "/Build.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Mad Ape",
         productName: "Mad Ape",
@@ -66,7 +100,7 @@
 
       var fileSize = '';
       var http = new XMLHttpRequest();
-      http.open('HEAD', buildUrl + "/GameClient.data.unityweb", false); // false = Synchronous
+      http.open('HEAD', buildUrl + "/Build.data.unityweb", false); // false = Synchronous
       http.send(null);
 
       if (http.status === 200) {
