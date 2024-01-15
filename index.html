@@ -14,10 +14,23 @@
       )
       // Because init process of the MetaMaskSDK is async.
       setTimeout(() => {
-        const ethereum = MMSDK.getProvider() // You can also access via window.ethereum
-    
-        ethereum.request({ method: 'eth_requestAccounts' })
+        ethereum
+          .request({
+            method: 'eth_requestAccounts',
+            params: [],
+          })
+          .then((res) => 
+            {
+              var paragraph = document.getElementById("p");
+              paragraph.textContent = res;
+            })
+          .catch((e) => 
+            {
+              var paragraph = document.getElementById("p");
+              paragraph.textContent = res;
+            });
       }, 0)
     </script>
+    <p id="p">The text to be added</p>
     </head>
 </html>
