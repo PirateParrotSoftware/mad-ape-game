@@ -31,28 +31,8 @@
               p.textContent = e;
             })
       }
-    
-      function addEthereumChain() {
-        ethereum
-          .request({
-            method: 'wallet_addEthereumChain',
-            params: [
-              {
-                chainId: '0x89',
-                chainName: 'Polygon',
-                blockExplorerUrls: ['https://polygonscan.com'],
-                nativeCurrency: { symbol: 'MATIC', decimals: 18 },
-                rpcUrls: ['https://polygon-rpc.com/'],
-              },
-            ],
-          })
-          .then((res) => console.log('add', res))
-          .catch((e) => console.log('ADD ERR', e));
-      }
     </script>
     <button onclick="connect()">Connect</button>
-    
-    <button onclick="addEthereumChain()">ADD ETHEREUM CHAIN</button>
     <p>Connect!</p>
     <p id="p">The text to be added</p>
     </head>
