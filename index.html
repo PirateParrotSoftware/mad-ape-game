@@ -1,136 +1,107 @@
-<!DOCTYPE html>
-<html lang="en-us">
+<html>
+  <script src="https://c0f4f41c-2f55-4863-921b-sdk-docs.github.io/cdn/metamask-sdk.js"></script>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Mad Ape</title>
-    <link rel="icon" type="image/png" href="TemplateData/favicon.png" />
-    <link rel="apple-touch-icon" href="TemplateData/favicon.png"/>
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Syncopate" />
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=EB+Garamond" />
-    <link rel="stylesheet" href="TemplateData/style.css"><script src="https://c0f4f41c-2f55-4863-921b-sdk-docs.github.io/cdn/metamask-sdk.js"></script>
+    <title>Web3modal example written in vanilla JavaScript and HTML</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Get some bootstrap default styles -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
   <body>
-    
-    <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=1650 height=1080></canvas>
-      <div id="unity-loading-bar">
-        <!--
-        <div id="game-title" style="font-family: Syncopate, Courier, monospace;">
-          <span style="font-weight: bold; font-size: 66px;color: white; letter-spacing: 15px;">CYBER</span><span style="font-weight: bold; background-color: white; color: black;">GOTHICA</span>
-        </div>-->
-        <!-- <img id="game-logo" src="TemplateData/logo.png" /> -->
-        <div id="unity-progress-bar-empty">
-			<div id="unity-progress-bar-full"></div>
-			<div id="text-label">0 / ? MB</div>
+    <!-- Construct a Bootstrap layout -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Web3modal example for vanille JavaScript and HTML</h1>
+
+          <p>No wallet connected. Connect wallet to show accounts and their ETH balances.</p>
+
+          <div class="alert alert-danger" id="alert-error-https" style="display: none">
+            You can run this example only over HTTPS connection.
+          </div>
+
+          <div id="prepare">
+            <button class="btn btn-primary" id="btn-connect">
+              Connect wallet
+            </button>
+          </div>
+
+          <div id="connected" style="display: none">
+
+            <button class="btn btn-primary" id="btn-disconnect">
+              Disconnect wallet
+            </button>
+
+            <hr>
+
+            <div id="network">
+              <p>
+                <strong>Connected blockchain:</strong> <span id="network-name"></span>
+              </p>
+
+              <p>
+                <strong>Selected account:</strong> <span id="selected-account"></span>
+              </p>
+
+            </div>
+
+            <hr>
+
+            <h3>All account balances</h3>
+
+            <table class="table table-listing">
+              <thead>
+                <th>Address</th>
+                <th>ETH balance</th>
+              </thead>
+
+              <tbody id="accounts">
+              </tbody>
+            </table>
+
+            <p>Please try to switch between different accounts in your wallet if your wallet supports this functonality.</p>
+
+          </div>
+
+          <br>
+
+          <div class="well">
+            <p class="text-muted">See also the <a href="https://web3modal.com/">TypeScript and React example application</a></p>
+          </div>
+
         </div>
       </div>
     </div>
-	
-	<div id="date-label">  </div>
-	<script src="web3/index.js"></script>
-    <script>
-      var buildUrl = "Build";
-      var gameInstance;
 
-      var loaderUrl = buildUrl + "/Build.loader.js";
-      var config = {
-        dataUrl: buildUrl + "/Build.data.unityweb",
-        frameworkUrl: buildUrl + "/Build.framework.js.unityweb",
-        codeUrl: buildUrl + "/Build.wasm.unityweb",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "Mad Ape",
-        productName: "Mad Ape",
-        productVersion: "0.9"
-      };
+    <!-- We use simple <template> templating for the example -->
+    <div id="templates" style="display: none">
+      <template id="template-balance">
+        <tr>
+          <th class="address"></th>
+          <td class="balance"></td>
+        </tr>
+      </template>
+    </div>
 
-      var container = document.querySelector("#unity-container");
-      var canvas = document.querySelector("#unity-canvas");
-      var loadingBar = document.querySelector("#unity-loading-bar");
-      var progressBarFull = document.querySelector("#unity-progress-bar-full");
-      var date = document.querySelector("#date-label");
-      // By default Unity keeps WebGL canvas render target size matched with
-      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
-      // Set this to false if you want to decouple this synchronization from
-      // happening inside the engine, and you would instead like to size up
-      // the canvas DOM size and WebGL render target sizes yourself.
-      // config.matchWebGLToCanvasSize = false;
-      container.className = "unity-mobile";
-        // Avoid draining fillrate performance on mobile devices,
-        // and default/override low DPI mode on mobile browsers.
-        //config.devicePixelRatio = 1;
+    <!--
 
-      loadingBar.style.display = "flex";
+      Use unpkg CDN to load all NPM packages to vanilla Javascript - read more at http://unpkg.com
 
-      var script = document.createElement("script");
-      script.src = loaderUrl;
+      On your deployment, you properly either want to use a preprocessing tool like webpack
+      to include these files, or extract NPM archives and manually host the files inside.
 
-      var fileSize = '';
-      var http = new XMLHttpRequest();
-      http.open('HEAD', buildUrl + "/Build.data.unityweb", false); // false = Synchronous
-      http.send(null);
+      TODO: Pin down all versions.
 
-      if (http.status === 200) {
-          fileSize = http.getResponseHeader('content-length');
-          fileSize /= 1024 * 1024;
-          console.log('fileSize = ' + fileSize);
-      }
-      var label = document.querySelector("#text-label");
+    -->
 
-      script.onload = () => {
-        createUnityInstance(canvas, config, (progress) => {
-          progressBarFull.style.width = 100 * progress + "%";
+    <script type="text/javascript" src="https://unpkg.com/web3@1.2.11/dist/web3.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.0/dist/index.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/evm-chains@0.2.0/dist/umd/index.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.2.1/dist/umd/index.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/fortmatic@2.0.6/dist/fortmatic.js"></script>
 
-          label.innerHTML = (fileSize * progress).toFixed(1) + " / " + fileSize.toFixed(1) + " MB";
-
-          if(progress >= 0.9) {
-            label.innerHTML = "Please wait while the game is being initialised...";
-            progressBarFull.style.width = "100%";
-          }
-        }).then((unityInstance) => {
-          label.innerHTML = "Please wait while the game is being initialised...";
-          gameInstance = unityInstance;
-          loadingBar.style.display = "none";
-			date.style.display = "none";
-        }).catch((message) => {
-          alert(message);
-        });
-      };
-      document.body.appendChild(script);
-    </script>
-	<script src="Build/UnityBridge.js"></script>
-  <script src="https://c0f4f41c-2f55-4863-921b-sdk-docs.github.io/cdn/metamask-sdk.js"></script>
-    <script>
-      const sdk = new MetaMaskSDK.MetaMaskSDK({
-        dappMetadata: {
-          name: "Pure JS example",
-          url: window.location.host,
-        },
-        logging: {
-          sdk: false,
-        }
-      });
-    </script>
-    <script>
-      function connect() {
-        ethereum
-          .request({
-            method: 'eth_requestAccounts',
-            params: [],
-          })
-          .then((res) => 
-            {
-              var p = document.getElementById("p");
-              p.textContent = res;
-            })
-          .catch((e) =>
-            {
-              var p = document.getElementById("p");
-              p.textContent = e;
-            })
-      }
-    </script>
-    <button onclick="connect()">Connect</button>
-    <button id="p">Address</button>
+    <!-- This is our example code -->
+    <script type="text/javascript" src="./example.js"></script>
   </body>
 </html>
