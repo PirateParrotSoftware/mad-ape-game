@@ -48,6 +48,7 @@ const sdk = new MetaMaskSDK.MetaMaskSDK({
   dappMetadata: {
     name: "Metamask",
     url: window.location.host,
+    useDeeplink: true,
   }
 });
 
