@@ -6,6 +6,22 @@
     <title>Test</title>
     <label id=".account">"Not connected"</label>
     <script src="https://c0f4f41c-2f55-4863-921b-sdk-docs.github.io/cdn/metamask-sdk.js"></script>
+    <link rel="stylesheet" href="login.css">
+    <div class="loginBox" id="connectPopup">
+        <div class="loginContent">
+            <div class="loginButtonsContainer">
+                <div class="loginButtonContainer">
+                    <button onclick="connect()">Connect wallet</button>
+                </div>
+                <div class="loginButtonContainer">
+                    <button onclick="connect()">Connect wallet</button>
+                </div>
+                <div class="loginButtonContainer">
+                    <button onclick="connect()">Connect wallet</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         const MMSDK = new MetaMaskSDK.MetaMaskSDK(
             {
@@ -50,7 +66,12 @@
 
             console.log("Chain added");
         }
+
+        function showConnectPopup()
+        {
+            document.getElementById("connectPopup").style.visibility = "visible";
+        }
   </script>
-    <button onclick="connect()">Connect</button>
+    <button onclick="showConnectPopup()">Open connect popup</button>
   </head>
 </html>
