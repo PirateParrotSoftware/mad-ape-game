@@ -11,25 +11,25 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=EB+Garamond" />
     <link rel="stylesheet" href="TemplateData/style.css"><script src="https://c0f4f41c-2f55-4863-921b-sdk-docs.github.io/cdn/metamask-sdk.js"></script>
     <link rel="stylesheet" href="login.css">
-    <div class="loginBox" id="connectPopup">
-        <div class="loginContent">
-            <div class="loginSelectionGroup">
-                <div class="loginItemContainer">
-                    <button onclick="connect()" class="loginButton">Play as guest</button>
-                </div>
-                <p class="loginText">Or</p>
-                <div class="loginItemContainer">
-                    <button onclick="connect()" class="loginButton">Connect wallet</button>
-                </div>
-                <div class="corner-left"></div>
-                <div class="corner-right"></div>
-                <div class="logo"></div>
-            </div>
-        </div>
-    </div>
   </head>
   <body>
-    
+    <div class="loginBox" id="connectPopup">
+      <div class="loginContent">
+          <div class="loginSelectionGroup">
+              <div class="loginItemContainer">
+                  <button onclick="gameInstance.SendMessage('Mobile web login handler', 'LoginGuest')" class="loginButton">Play as guest</button>
+              </div>
+              <p class="loginText">Or</p>
+              <div class="loginItemContainer">
+                  <button onclick="gameInstance.SendMessage('Mobile web login handler', 'Login')" class="loginButton">Connect wallet</button>
+              </div>
+              <div class="corner-left"></div>
+              <div class="corner-right"></div>
+              <div class="logo"></div>
+          </div>
+      </div>
+    </div>
+
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas" width=1650 height=1080></canvas>
       <div id="unity-loading-bar">

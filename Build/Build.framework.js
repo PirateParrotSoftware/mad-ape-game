@@ -1319,7 +1319,7 @@ function _emscripten_asm_const_id(code, a0) {
  return ASM_CONSTS[code](a0);
 }
 STATIC_BASE = GLOBAL_BASE;
-STATICTOP = STATIC_BASE + 7011968;
+STATICTOP = STATIC_BASE + 7012368;
 __ATINIT__.push({
  func: (function() {
   __GLOBAL__sub_I_AIScriptingClasses_cpp();
@@ -3393,7 +3393,7 @@ __ATINIT__.push({
   ___emscripten_environ_constructor();
  })
 });
-var STATIC_BUMP = 7011968;
+var STATIC_BUMP = 7012368;
 Module["STATIC_BASE"] = STATIC_BASE;
 Module["STATIC_BUMP"] = STATIC_BUMP;
 var tempDoublePtr = STATICTOP;
@@ -3410,7 +3410,7 @@ function _ClaimBNN(abi, contract, id, nftType) {
  window.web3gl.apeClaim(Pointer_stringify(abi), Pointer_stringify(contract), Pointer_stringify(id), nftType);
 }
 function _CloseLoginPopup() {
- closeLoginPopup();
+ document.getElementById("connectPopup").style.visibility = "hidden";
 }
 function _ConnectAccount() {
  var bufferSize = lengthBytesUTF8(window.web3gl.connectAccount) + 1;
@@ -4652,7 +4652,7 @@ function _LoadNFTTokenIds(abi, contract, address, nftType) {
  window.web3gl.fetchTokenIds(Pointer_stringify(abi), Pointer_stringify(contract), Pointer_stringify(address), nftType);
 }
 function _OpenLoginPopup() {
- openLoginPopup();
+ document.getElementById("connectPopup").style.visibility = "visible";
 }
 function _OpenWindow(str) {}
 function _SendBNN(amount) {
