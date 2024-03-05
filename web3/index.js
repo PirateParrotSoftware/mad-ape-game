@@ -44,52 +44,32 @@ let web3;
 
 const baseGas = "0x09184e72a0";
 
-const sdk = new MetaMaskSDK.MetaMaskSDK({
-  dappMetadata: {
-    name: "Metamask",
-    url: window.location.host,
-  }
-});
-
 /*
 paste this in inspector to connect to wallet:
 window.web3gl.connect()
 */
 async function connect() {
-  
-  console.log("Start logging process");
+  // uncomment to enable torus and walletconnect
+  const providerOptions = {
+    // torus: {
+    //   package: Torus,
+    // },
+    // walletconnect: {
+    //   package: window.WalletConnectProvider.default,
+    //   options: {
+    //     infuraId: "00000000000000000000000000000000",
+    //   },
+    // },
+  };
 
-  let result = await ethereum
-    .request({
-      method: 'eth_requestAccounts',
-      params: [],
-    });
+  const web3Modal = new window.Web3Modal.default({
+    providerOptions,
+  });
 
-  console.log("Connected");
-
-  let chainResult = await ethereum
-          .request({
-            method: 'wallet_addEthereumChain',
-            params: [
-              {
-                chainId: '0x89',
-                chainName: "Matic Mainnet",
-                nativeCurrency: {
-                  name: "MATIC",
-                  symbol: "MATIC",
-                  decimals: 18
-                },
-                blockExplorerUrls: ['https://polygonscan.com'],
-                nativeCurrency: { symbol: 'MATIC', decimals: 18 },
-                rpcUrls: ['https://polygon-rpc.com/'],
-              },
-            ],
-          });
-
-  console.log("Chain added");
+  web3Modal.clearCachedProvider();
 
   // set provider
-  provider = ethereum;
+  provider = await web3Modal.connect();
   web3 = new Web3(new Web3.providers.HttpProvider("https://practical-neat-spree.matic.quiknode.pro/c6fb548022fc12ef652c60edf20769acf4db4771/"));
 
   // set current network id

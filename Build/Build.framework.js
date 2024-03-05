@@ -1319,7 +1319,7 @@ function _emscripten_asm_const_id(code, a0) {
  return ASM_CONSTS[code](a0);
 }
 STATIC_BASE = GLOBAL_BASE;
-STATICTOP = STATIC_BASE + 6998496;
+STATICTOP = STATIC_BASE + 7024816;
 __ATINIT__.push({
  func: (function() {
   __GLOBAL__sub_I_AIScriptingClasses_cpp();
@@ -3393,7 +3393,7 @@ __ATINIT__.push({
   ___emscripten_environ_constructor();
  })
 });
-var STATIC_BUMP = 6998496;
+var STATIC_BUMP = 7024816;
 Module["STATIC_BASE"] = STATIC_BASE;
 Module["STATIC_BUMP"] = STATIC_BUMP;
 var tempDoublePtr = STATICTOP;
@@ -3410,7 +3410,10 @@ function _ClaimBNN(abi, contract, id, nftType) {
  window.web3gl.apeClaim(Pointer_stringify(abi), Pointer_stringify(contract), Pointer_stringify(id), nftType);
 }
 function _CloseLoginPopup() {
- document.getElementById("connectPopup").style.visibility = "hidden";
+ console.log("Closing login popup");
+ var popup = document.getElementById("connectPopup");
+ popup.style.visibility = "hidden";
+ popup.style.display = "none";
 }
 function _ConnectAccount() {
  var bufferSize = lengthBytesUTF8(window.web3gl.connectAccount) + 1;
@@ -4031,6 +4034,9 @@ function _JS_SystemInfo_HasFullscreen() {
 function _JS_SystemInfo_HasWebGL() {
  return Module.SystemInfo.hasWebGL;
 }
+function _JS_SystemInfo_IsMobile() {
+ return Module.SystemInfo.mobile;
+}
 function _JS_UNETWebSockets_HostsContainingMessagesCleanHost(hostId) {
  for (i = 0; i < UNETWebSocketsInstances.hostsContainingMessages.length; i++) {
   if (UNETWebSocketsInstances.hostsContainingMessages[i] != null) {
@@ -4105,6 +4111,22 @@ function _JS_UNETWebSockets_IsHostReadyToConnect(i) {
   return true;
  }
  return false;
+}
+function _JS_UNETWebSockets_SocketCleanEvnt() {
+ var host = UNETWebSocketsInstances.hostsContainingMessages.shift();
+ host.inQueue = false;
+ if (host.state == UNETWebSocketsInstances.HostStates.Opening) {
+  host.state = UNETWebSocketsInstances.HostStates.Connected;
+  if (host.messages.length != 0) _JS_UNETWebSockets_HostsContainingMessagesPush(host);
+ } else if (host.state == UNETWebSocketsInstances.HostStates.Closing) {
+  if (host.messages.length == 0) UNETWebSocketsInstances.hosts[host.id] = null; else {
+   host.messages.shift();
+   if (host.messages.length != 0) _JS_UNETWebSockets_HostsContainingMessagesPush(host);
+  }
+ } else {
+  host.messages.shift();
+  if (host.messages.length != 0) _JS_UNETWebSockets_HostsContainingMessagesPush(host);
+ }
 }
 function _JS_UNETWebSockets_SocketCleanEvntFromHost(hostId) {
  if (UNETWebSocketsInstances.hosts[hostId].state == UNETWebSocketsInstances.HostStates.Opening) UNETWebSocketsInstances.hosts[hostId].state = UNETWebSocketsInstances.HostStates.Connected; else if (UNETWebSocketsInstances.hosts[hostId].messages.length != 0) UNETWebSocketsInstances.hosts[hostId].messages.shift(); else if (UNETWebSocketsInstances.hosts[hostId].state == UNETWebSocketsInstances.HostStates.Closing) {
@@ -4184,11 +4206,30 @@ function _JS_UNETWebSockets_SocketCreate(hostId, url) {
  socket.pingTimeout = UNETWebSocketsInstances.hosts[socket.id].pingTimeout;
  UNETWebSocketsInstances.hosts[socket.id] = socket;
 }
+function _JS_UNETWebSockets_SocketRecvEvntBuff(ptr, length) {
+ HEAPU8.set(UNETWebSocketsInstances.hostsContainingMessages[0].messages[0], ptr);
+}
 function _JS_UNETWebSockets_SocketRecvEvntBuffFromHost(hostId, ptr, length) {
  HEAPU8.set(UNETWebSocketsInstances.hosts[hostId].messages[0], ptr);
 }
+function _JS_UNETWebSockets_SocketRecvEvntBuffLength() {
+ return UNETWebSocketsInstances.hostsContainingMessages[0].messages[0].length;
+}
 function _JS_UNETWebSockets_SocketRecvEvntBuffLengthFromHost(hostId) {
  return UNETWebSocketsInstances.hosts[hostId].messages[0].length;
+}
+function _JS_UNETWebSockets_SocketRecvEvntHost() {
+ return UNETWebSocketsInstances.hostsContainingMessages[0].id;
+}
+function _JS_UNETWebSockets_SocketRecvEvntType() {
+ if (UNETWebSocketsInstances.hostsContainingMessages.length == 0) return UNETWebSocketsInstances.EventTypes.Nothing;
+ while (UNETWebSocketsInstances.hostsContainingMessages.length != 0) {
+  if (UNETWebSocketsInstances.hostsContainingMessages[0] == null) UNETWebSocketsInstances.hostsContainingMessages.shift(); else if (UNETWebSocketsInstances.hostsContainingMessages[0].state == UNETWebSocketsInstances.HostStates.Closed) UNETWebSocketsInstances.hostsContainingMessages.shift(); else if (UNETWebSocketsInstances.hostsContainingMessages[0].state == UNETWebSocketsInstances.HostStates.Opening) break; else if (UNETWebSocketsInstances.hostsContainingMessages[0].state == UNETWebSocketsInstances.HostStates.Closing) break; else if (UNETWebSocketsInstances.hostsContainingMessages[0].messages.length == 0) {
+   UNETWebSocketsInstances.hostsContainingMessages[0].inQueue = false;
+   UNETWebSocketsInstances.hostsContainingMessages.shift();
+  } else break;
+ }
+ if (UNETWebSocketsInstances.hostsContainingMessages.length == 0) return UNETWebSocketsInstances.EventTypes.Nothing; else if (UNETWebSocketsInstances.hostsContainingMessages[0].state == UNETWebSocketsInstances.HostStates.Opening) return UNETWebSocketsInstances.EventTypes.ConnectEvent; else if (UNETWebSocketsInstances.hostsContainingMessages[0].state == UNETWebSocketsInstances.HostStates.Closing && UNETWebSocketsInstances.hostsContainingMessages[0].messages.length == 0) return UNETWebSocketsInstances.EventTypes.DisconnectEvent; else return UNETWebSocketsInstances.EventTypes.DataEvent;
 }
 function _JS_UNETWebSockets_SocketRecvEvntTypeFromHost(hostId) {
  var evnt = UNETWebSocketsInstances.EventTypes.Nothing;
@@ -4617,7 +4658,10 @@ function _LoadNFTTokenIds(abi, contract, address, nftType) {
  window.web3gl.fetchTokenIds(Pointer_stringify(abi), Pointer_stringify(contract), Pointer_stringify(address), nftType);
 }
 function _OpenLoginPopup() {
- document.getElementById("connectPopup").style.visibility = "visible";
+ console.log("Opening login popup");
+ var popup = document.getElementById("connectPopup");
+ popup.style.visibility = "visible";
+ popup.style.display = "flex";
 }
 function _OpenWindow(str) {}
 function _SendBNN(amount) {
@@ -18139,8 +18183,8 @@ function nullFunc_vjji(x) {
  err("Build with ASSERTIONS=2 for more info.");
  abort(x);
 }
-Module["wasmTableSize"] = 272720;
-Module["wasmMaxTableSize"] = 272720;
+Module["wasmTableSize"] = 272724;
+Module["wasmMaxTableSize"] = 272724;
 function invoke_ddddii(index, a1, a2, a3, a4, a5) {
  var sp = stackSave();
  try {
@@ -23998,17 +24042,23 @@ Module.asmLibraryArg = {
  "_JS_SystemInfo_HasCursorLock": _JS_SystemInfo_HasCursorLock,
  "_JS_SystemInfo_HasFullscreen": _JS_SystemInfo_HasFullscreen,
  "_JS_SystemInfo_HasWebGL": _JS_SystemInfo_HasWebGL,
+ "_JS_SystemInfo_IsMobile": _JS_SystemInfo_IsMobile,
  "_JS_UNETWebSockets_AddHost": _JS_UNETWebSockets_AddHost,
  "_JS_UNETWebSockets_HostsContainingMessagesCleanHost": _JS_UNETWebSockets_HostsContainingMessagesCleanHost,
  "_JS_UNETWebSockets_HostsContainingMessagesPush": _JS_UNETWebSockets_HostsContainingMessagesPush,
  "_JS_UNETWebSockets_Init": _JS_UNETWebSockets_Init,
  "_JS_UNETWebSockets_IsHostCorrect": _JS_UNETWebSockets_IsHostCorrect,
  "_JS_UNETWebSockets_IsHostReadyToConnect": _JS_UNETWebSockets_IsHostReadyToConnect,
+ "_JS_UNETWebSockets_SocketCleanEvnt": _JS_UNETWebSockets_SocketCleanEvnt,
  "_JS_UNETWebSockets_SocketCleanEvntFromHost": _JS_UNETWebSockets_SocketCleanEvntFromHost,
  "_JS_UNETWebSockets_SocketClose": _JS_UNETWebSockets_SocketClose,
  "_JS_UNETWebSockets_SocketCreate": _JS_UNETWebSockets_SocketCreate,
+ "_JS_UNETWebSockets_SocketRecvEvntBuff": _JS_UNETWebSockets_SocketRecvEvntBuff,
  "_JS_UNETWebSockets_SocketRecvEvntBuffFromHost": _JS_UNETWebSockets_SocketRecvEvntBuffFromHost,
+ "_JS_UNETWebSockets_SocketRecvEvntBuffLength": _JS_UNETWebSockets_SocketRecvEvntBuffLength,
  "_JS_UNETWebSockets_SocketRecvEvntBuffLengthFromHost": _JS_UNETWebSockets_SocketRecvEvntBuffLengthFromHost,
+ "_JS_UNETWebSockets_SocketRecvEvntHost": _JS_UNETWebSockets_SocketRecvEvntHost,
+ "_JS_UNETWebSockets_SocketRecvEvntType": _JS_UNETWebSockets_SocketRecvEvntType,
  "_JS_UNETWebSockets_SocketRecvEvntTypeFromHost": _JS_UNETWebSockets_SocketRecvEvntTypeFromHost,
  "_JS_UNETWebSockets_SocketSend": _JS_UNETWebSockets_SocketSend,
  "_JS_UNETWebSockets_SocketStop": _JS_UNETWebSockets_SocketStop,
